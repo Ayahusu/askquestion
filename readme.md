@@ -1,127 +1,112 @@
-AskQuestion Web Application
+# AskQuestion Web Application
 
-Table of Contents
+## Table of Contents
 
-Overview
+- [Overview](#overview)
+  - [Features](#features)
+  - [Technologies Used](#technologies-used)
+  - [System Requirements](#system-requirements)
+- [Installation Guide](#installation-guide)
+  - [Prerequisites](#prerequisites)
+  - [Setting Up the Environment](#setting-up-the-environment)
+  - [Running the Application Locally](#running-the-application-locally)
+  - [Database Configuration](#database-configuration)
+  - [Web Server Configuration](#web-server-configuration)
+  - [Troubleshooting](#troubleshooting)
+- [Folder Structure](#folder-structure)
+- [Security Considerations](#security-considerations)
+- [License](#license)
+- [Contribution Guidelines](#contribution-guidelines)
 
-Features
-
-Technologies Used
-
-System Requirements
-
-Installation Guide
-
-Prerequisites
-
-Setting Up the Environment
-
-Running the Application Locally
-
-Database Configuration
-
-Folder Structure
-
-License
-
-Overview
+# Overview
 
 The AskQuestion web application is a platform where users can ask questions, provide answers, and engage in discussions on various topics. The system supports user authentication, question management, and user interaction features to create a dynamic Q&A community.
 
-Features
+# Features
 
-User authentication (Signup, Login, Logout)
+- User authentication (Signup, Login, Logout)
+- Ask and answer questions
+- Comment on answers
+- Responsive design using Bootstrap
+- Secure password hashing for authentication
 
-Ask and answer questions
+# Technologies Used
 
-Comment on answers
+- Frontend: HTML, CSS, JavaScript, Bootstrap
+- Backend: PHP
+- Database: MySQL
+- Version Control: Git
 
-Responsive design using Bootstrap
+# System Requirements
 
-Secure password hashing for authentication
+- PHP 7.4 or later
+- MySQL 5.7 or later
+- Apache or Nginx Web Server
 
-Technologies Used
+# Installation Guide
 
-Frontend: HTML, CSS, JavaScript, Bootstrap
-
-Backend: PHP
-
-Database: MySQL
-
-Version Control: Git
-
-System Requirements
-
-PHP 7.4 or later
-
-MySQL 5.7 or later
-
-Apache or Nginx Web Server
-
-Composer (Optional for package management)
-
-Installation Guide
-
-Prerequisites
+## Prerequisites
 
 Ensure that the following software is installed on your system:
 
-PHP
+- PHP
+- MySQL Database Server
+- Apache/Nginx
+- Git (for version control)
 
-MySQL Database Server
+## Setting Up the Environment
 
-Apache/Nginx
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/Ayahusu/askquestion.git](https://github.com/Ayahusu/askquestion.git) #Replace with your repo URL
+    ```
+2.  **Navigate to the project directory:**
+    ```bash
+    cd askquestion
+    ```
 
-Git (for version control)
+## Running the Application Locally
 
-Setting Up the Environment
+1.  **Start the local development server:**
+    ```bash
+    php -S localhost:8000
+    ```
+2.  **Open a browser and go to:**
+    ```
+    http://localhost:8000
+    ```
 
-Clone the repository:
+## Database Configuration
 
-git clone https://github.com/your-repo/askquestion.git
+1.  **Create a MySQL database:**
+    ```sql
+    CREATE DATABASE discuss;
+    ```
+2.  **Import the database schema:**
+    ```bash
+    mysql -u root -p discuss < database/schema.sql
+    ```
+    - Ensure that the `database/schema.sql` file is located in the `database/` directory.
+3.  **Configure database connection in `config/database.php`:**
+    ```php
+    $host = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "discuss";
+    ```
+    - **Note:** For production environments, it is strongly recommended to use environment variables to store database credentials.
 
-Navigate to the project directory:
+## Web Server Configuration
 
-cd askquestion
+**Apache Example:**
 
-Start the local development server:
+Create a `.htaccess` file in your project root with the following:
 
-php -S localhost:8000
-
-Running the Application Locally
-
-Open a browser and go to:
-
-http://localhost:8000
-
-Database Configuration
-
-Create a MySQL database:
-
-CREATE DATABASE discuss;
-
-Import the database schema:
-
-mysql -u root -p discuss < database/schema.sql
-
-Configure database connection in config/database.php:
-
-$host = "localhost";
-$username = "root";
-$password = "";
-$dbname = "discuss";
-
-Folder Structure
-
-askquestion/
-├── config/ # Database configuration
-├── css/ # Stylesheets
-├── includes/ # Common UI components (header, footer, etc.)
-├── public/ # Static assets (images, banners, etc.)
-├── server/ # Backend PHP scripts
-├── index.php # Main entry point
-└── README.md # Project documentation
-
-License
-
-This project is licensed under the MIT License.
+```apacheconf
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+```
